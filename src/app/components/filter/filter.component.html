@@ -1,0 +1,16 @@
+<form class="filter">
+  <select name="category" id="filter__select">
+    <option>Select Category</option>
+    <option *ngFor="let category of categories">
+      {{ category }}
+    </option>
+  </select>
+  <div class="filter__text">
+    <input type="text" placeholder="Type your text ..." />
+    <button>Filter</button>
+  </div>
+  <label for="favourites">
+    Favourites
+    <input type="checkbox" name="favourites" id="favourites" />
+  </label>
+</form>

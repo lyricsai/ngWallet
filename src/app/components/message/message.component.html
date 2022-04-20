@@ -1,0 +1,13 @@
+<form>
+  <input
+    type="text"
+    name="message"
+    id=""
+    [formControl]="message"
+    #writeMessage
+    (input)="onInput(writeMessage.value)"
+    placeholder="Type anything..."
+  />
+
+  <button type="button" (click)="addNewMessage(writeMessage.value)">Add</button>
+</form>
