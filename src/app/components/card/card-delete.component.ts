@@ -9,7 +9,8 @@ import { ICard } from '../../interfaces/card';
   styleUrls: ['./card.component.scss'],
 })
 export class CardDeleteComponent implements OnInit {
-  id!: number;
+  id!: number | string;
+  cards: ICard[] = [];
 
   constructor(
     protected cardService: CardService,
@@ -23,10 +24,19 @@ export class CardDeleteComponent implements OnInit {
 
   delete(): void {
     let id = Number(this.route.snapshot.paramMap.get('id'));
-    this.router.navigate(['cards']);
+
     if (confirm('Delete this card?')) {
-      this.cardService.deleteById(id);
-      console.log('Delete card id: ', id, typeof id);
+      console.log('Delete card id: ', id);
+      this.cardService.deleteById(id).subscribe();
+
+      this.getAllCards();
+      setTimeout(() => {
+        this.router.navigate(['cards']);
+      }, 200);
     }
+  }
+
+  getAllCards(): void {
+    this.cardService.getAllCards().subscribe((data) => (this.cards = data));
   }
 }

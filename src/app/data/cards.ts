@@ -29,7 +29,7 @@ export const Cards: Array<ICard> = [
     fav: true,
     picture: null,
     name: 'John Doe',
-    dueDate: '',
+    dueDate: '24/04/2022',
     notes: '',
     issuer: '',
   },

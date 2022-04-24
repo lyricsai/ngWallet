@@ -1,74 +1,67 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+
 import { Cards } from '../data/cards';
 import { ICard } from '../interfaces/card';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CardService {
-  cards: ICard[] = [
-    {
-      id: '2',
-      title: 'Another Card',
-      cardNumber: '9012345678',
-      category: 'Loyalty',
-      fav: false,
-      picture: null,
-      name: '',
-      dueDate: '',
-      notes: 'some data',
-      issuer: '',
-    },
-    {
-      id: '3',
-      title: 'Some Card',
-      cardNumber: '0123456789',
-      category: 'Loyalty',
-      fav: true,
-      picture: null,
-      name: 'John Doe',
-      dueDate: '',
-      notes: '',
-      issuer: '',
-    },
-    {
-      id: '1',
-      title: 'The Other Card',
-      cardNumber: '1234567890',
-      category: 'Other',
-      fav: false,
-      picture: null,
-      name: '',
-      dueDate: '',
-      notes: '',
-      issuer: '',
-    },
-  ];
-
+  urlAPI = 'https://625e7a57873d6798e2a821ec.mockapi.io';
+  posts: any;
+  cards: ICard[] = Cards;
   currentId: number | string = '';
-  constructor() {}
+
+  constructor(private http: HttpClient, private errorService: ErrorService) {}
+
+  httpOptions = {
+    responseType: 'json' as const,
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
 
   addId(): string {
     return (this.currentId = new Date().getTime().toString());
   }
 
-  addCard(card: ICard): void {
+  addCard(card: ICard): Observable<ICard> {
     this.addId();
-    this.cards.push(card);
+
+    return this.http.post<ICard>(
+      this.urlAPI + '/cards',
+      card,
+      this.httpOptions
+    );
+    // .pipe(  retry(3),
+    // catchError(this.errorService.handleError('addCard', card)));
   }
 
-  getAllCards(): ICard[] {
-    this.cards = this.cards.map((e) => e);
-    return this.cards;
+  getAllCards(): Observable<ICard[]> {
+    return this.http.get<ICard[]>(this.urlAPI + '/cards');
   }
 
-  getCardById(id: number | string): ICard | undefined {
-    id = id.toString();
-    return this.cards.find((card) => card.id === id);
+  getCardById(id: number | string): Observable<ICard> {
+    return this.http.get<ICard>(this.urlAPI + '/cards/' + id);
   }
 
-  deleteById(id: number | string): any {
-    id = id.toString();
-    this.cards = this.cards.filter((card) => card.id !== id);
+  deleteById(id: number | string): Observable<unknown> {
+    console.log(id);
+    console.log(this.urlAPI + '/cards/' + id);
+    return this.http.delete(this.urlAPI + '/cards/' + id, {
+      params: { id: id },
+    });
+    // .pipe(catchError(this.errorService.handleError('deleteCard')));
+  }
+
+  updateCard(card: ICard): Observable<ICard> {
+    return this.http.put<ICard>(this.urlAPI + '/cards', card, this.httpOptions);
+    // .pipe(
+    //   catchError(this.errorService.handleError(card))
+    // );
   }
 }

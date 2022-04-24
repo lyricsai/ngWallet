@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CardService } from 'src/app/services/card.service';
 
 @Component({
   selector: 'app-messages',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class MessagesComponent implements OnInit {
   messages: string[] = ['First Message', 'Second One'];
 
-  constructor() {}
+  constructor(private cardService: CardService) {}
 
   ngOnInit(): void {}
 

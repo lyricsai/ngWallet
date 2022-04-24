@@ -11,7 +11,6 @@ import { CardService } from 'src/app/services/card.service';
 export class CardDetailComponent implements OnInit {
   @Input() card!: ICard;
 
-  // card!: ICard;
   id: number | string = '';
   showMore: boolean = false;
   date: string = '';
@@ -25,21 +24,18 @@ export class CardDetailComponent implements OnInit {
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     if (!this.card) {
-      this.card = this.cardService.getCardById(this.id)!;
+      this.getCard();
     }
-    this.date = new Date(+this.card.id).toDateString();
+    this.date = new Date(this.card.dueDate).toDateString();
+  }
+
+  getCard() {
+    this.cardService
+      .getCardById(this.id)
+      .subscribe((data) => (this.card = data));
   }
 
   toggle(): void {
     this.showMore = !this.showMore;
-  }
-
-  delete(): void {
-    let id = this.id;
-    if (confirm('Delete this card?')) {
-      this.cardService.deleteById(id);
-      console.log('Delete card id: ', id, typeof id);
-      this.router.navigate(['cards']);
-    }
   }
 }

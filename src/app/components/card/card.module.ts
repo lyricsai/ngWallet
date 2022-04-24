@@ -11,6 +11,8 @@ import { CardDeleteComponent } from './card-delete.component';
 import { CardDetailComponent } from './card-detail.component';
 import { CardListComponent } from './card-list.component';
 import { FilterComponent } from '../filter/filter.component';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { FilterCategoryPipe } from 'src/app/pipes/filter-category.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { FilterComponent } from '../filter/filter.component';
     CardDetailComponent,
     CardListComponent,
     FilterComponent,
+    FilterPipe,
+    FilterCategoryPipe,
   ],
   imports: [
     CommonModule,
