@@ -1,13 +1,16 @@
 <form>
-  <input
-    type="text"
-    name="message"
-    id=""
-    [formControl]="message"
-    #writeMessage
-    (input)="onInput(writeMessage.value)"
-    placeholder="Type anything..."
-  />
-
-  <button type="button" (click)="addNewMessage(writeMessage.value)">Add</button>
+    <input
+        type="text"
+        name="message"
+        id=""
+        [(ngModel)]="message"
+        #writeMessage
+        (input)="onInput(writeMessage.value)"
+        placeholder="Type anything..."
+    />
+    <button type="button" (click)="addNewMessage(writeMessage.value)">
+        Add
+    </button>
 </form>
+<p>{{ message }}</p>
+<p>Messages: {{ messageCount }}</p>

@@ -1,4 +1,8 @@
 <ul>
-  <li *ngFor="let message of messages">{{ message }}</li>
+    <li *ngFor="let message of messages">{{ message }}</li>
 </ul>
-<app-message (newMessageEvent)="addMessage($event)"></app-message>
+<app-message
+    (newMessageEvent)="addMessage($event)"
+    [messageCount]="messageCount"
+></app-message>
+<p>Change Detection on push {{ ticks }}</p>
