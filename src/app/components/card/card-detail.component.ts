@@ -1,7 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ICard } from 'src/app/interfaces/card';
 import { CardService } from 'src/app/services/card.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-card-detail',
@@ -13,7 +20,6 @@ export class CardDetailComponent implements OnInit {
 
   id: number | string = '';
   showMore: boolean = false;
-  date: string = '';
 
   constructor(
     protected cardService: CardService,
@@ -26,7 +32,6 @@ export class CardDetailComponent implements OnInit {
     if (!this.card) {
       this.getCard();
     }
-    this.date = new Date(this.card.dueDate).toDateString();
   }
 
   getCard() {

@@ -1,0 +1,14 @@
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  & div {
+    padding: 15px;
+    margin: 0 auto;
+    max-width: 350px;
+    text-align: end;
+  }
+  & legend {
+    text-align: right;
+    padding: 0 30px;
+  }
+}

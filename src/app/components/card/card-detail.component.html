@@ -4,24 +4,23 @@
       <img *ngIf="card?.picture" src="{{ card?.picture || '#' }}" alt="pic" />
     </div>
     <div class="card__details">
-      <h4 class="card__line">{{ card?.title }}</h4>
+      <h4 class="card__line">Title: {{ card?.title }}</h4>
       <div class="card__line">Number: {{ card?.cardNumber }}</div>
-      <div class="card__line">{{ card?.category }}</div>
+      <div class="card__line">Category: {{ card?.category }}</div>
       <div class="card__line">{{ card.fav ? "Favourite" : null }}</div>
       <button mat-stroked-button class="card__more_info" (click)="toggle()">
         More...
       </button>
       <div class="card__isOpened" *ngIf="showMore">
-        <div class="card__line">{{ card?.name }}</div>
-        <div class="card__line">{{ card?.dueDate }}</div>
-        <div class="card__line">{{ card.issuer }}</div>
-        <p class="card__line">{{ card.notes }}</p>
+        <div class="card__line">Name: {{ card?.name }}</div>
+        <div class="card__line">Issuer: {{ card.issuer }}</div>
+        <div class="card__line">Notes: {{ card.notes }}</div>
       </div>
     </div>
   </div>
   <div class="card__actions">
     <div class="card__line card__date">
-      {{ card?.dueDate ? "Expires on " + date : "Valid" }}
+      {{ card?.dueDate ? "Expires on " + card.dueDate.slice(0, 10) : "Valid" }}
     </div>
     <a
       mat-stroked-button

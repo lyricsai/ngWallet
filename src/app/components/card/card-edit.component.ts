@@ -40,18 +40,30 @@ export class CardEditComponent implements OnInit {
   }
 
   onSubmit({ value, valid }: { value: ICard; valid: boolean }) {
-    if (this.newCard && valid) {
-      this.cardService
-        .addCard({ ...value, id: this.id })
-        .subscribe((card) => this.cards.push(card));
+    if (this.isAddMode) {
+      if (this.newCard && valid) {
+        this.cardService
+          .addCard({ ...value, id: this.id })
+          .subscribe((card) => this.cards.push(card));
 
-      this.getAllCards();
+        this.getAllCards();
 
-      setTimeout(() => {
-        this.router.navigate(['cards']);
-      }, 200);
+        setTimeout(() => {
+          this.router.navigate(['cards']);
+        }, 200);
+      }
     } else {
-      return;
+      if (this.newCard && valid) {
+        this.cardService
+          .updateCard({ ...value, id: this.id })
+          .subscribe((card) => card);
+
+        this.getAllCards();
+
+        setTimeout(() => {
+          this.router.navigate(['cards']);
+        }, 200);
+      }
     }
   }
 
