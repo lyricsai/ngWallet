@@ -7,35 +7,29 @@
 <div class="card__list" *ngIf="!cards.length; showCards">No Cards Yet.</div>
 
 <div class="card__list_showing" #showCards>
-    <div class="unfiltered" *ngIf="!filterTitle && !filterCat && !favCheck">
-        <ul class="card__list" *ngFor="let card of cards">
-            <li>
-                <a routerLink="{{ card.id }}">
-                    <app-card-detail [card]="card"></app-card-detail>
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="filtered" *ngIf="filterTitle || filterCat || favCheck">
-        <p>
-            Search for {{ filterTitle }} {{ filterCat }}
-            {{ favCheck ? "Favourites" : "" }}
-        </p>
-        <ul
-            class="card__list"
-            *ngFor="
-                let card of cards
-                    | filter: filterTitle
-                    | filterCategory: filterCat
-                    | filterFav: favCheck
-            "
-        >
-            <li>
-                <a routerLink="{{ card.id }}">
-                    <app-card-detail [card]="card"></app-card-detail>
-                </a>
-            </li>
-        </ul>
-    </div>
+    <p
+        *ngIf="
+            (filterCat && filterCat !== 'Select Category') ||
+            filterTitle ||
+            favCheck
+        "
+    >
+        Search for {{ filterTitle }} {{ filterCat }}
+        {{ favCheck ? "Favourites" : "" }}
+    </p>
+    <ul
+        class="card__list"
+        *ngFor="
+            let card of cards
+                | filter: filterTitle
+                | filterCategory: filterCat
+                | filterFav: favCheck
+        "
+    >
+        <li>
+            <a routerLink="{{ card.id }}">
+                <app-card-detail [card]="card"></app-card-detail>
+            </a>
+        </li>
+    </ul>
 </div>
