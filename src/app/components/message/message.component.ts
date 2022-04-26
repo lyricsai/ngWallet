@@ -1,24 +1,40 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {
+    Component,
+    OnInit,
+    EventEmitter,
+    Output,
+    SimpleChanges,
+    OnChanges,
+    Input,
+    ChangeDetectorRef,
+} from "@angular/core";
 
 @Component({
-  selector: 'app-message',
-  templateUrl: './message.component.html',
-  styleUrls: ['./message.component.scss'],
+    selector: "app-message",
+    templateUrl: "./message.component.html",
+    styleUrls: ["./message.component.scss"],
 })
-export class MessageComponent implements OnInit {
-  @Output() newMessageEvent = new EventEmitter<string>();
-  message: FormControl = new FormControl('');
-  constructor() {}
+export class MessageComponent implements OnInit, OnChanges {
+    @Input() messageCount!: number;
+    @Output() newMessageEvent = new EventEmitter<string>();
+    message: string = "";
 
-  ngOnInit(): void {}
+    constructor(private ref: ChangeDetectorRef) {}
 
-  addNewMessage(value:string): void {
-    this.newMessageEvent.emit(value);
-  }
+    ngOnInit(): void {}
 
-  onInput(message: string) {
-    this.message!.setValue(message);
-    console.log(this.message.value);
-  }
+    ngOnChanges(data: SimpleChanges) {
+        console.log(data);
+        this.ref.detach();
+    }
+
+    addNewMessage(value: string): void {
+        this.newMessageEvent.emit(value);
+        this.message = "";
+        this.ref.reattach();
+    }
+
+    onInput(message: string) {
+        this.message = message;
+    }
 }
