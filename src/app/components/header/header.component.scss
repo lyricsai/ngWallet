@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  border: 1px solid #fff;
+  &__login,
+  &__logo {
+    display: flex;
+
+    gap: 5px;
+  }
+}

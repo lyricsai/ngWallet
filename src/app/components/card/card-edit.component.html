@@ -1,0 +1,119 @@
+<h1 *ngIf="isAddMode">Add</h1>
+<h1 *ngIf="!isAddMode">Edit</h1>
+
+<div class="form__container">
+  <form novalidate [formGroup]="newCard" (ngSubmit)="onSubmit(newCard)">
+    <div class="form-group">
+      <label for="title"
+        >Title
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          class="form-control"
+      /></label>
+      <label for="cardNumber"
+        >Card Number
+        <input
+          type="text"
+          id="cardNumber"
+          formControlName="cardNumber"
+          class="form-control"
+      /></label>
+      <label for="category"
+        >Category
+        <select
+          name="category"
+          id="category"
+          formControlName="category"
+          class="form-control"
+        >
+          <option [ngValue]="null" disabled>Select Category</option>
+          <option *ngFor="let category of categories" [ngValue]="category">
+            {{ category }}
+          </option>
+        </select></label
+      >
+      <label for="notes">
+        <textarea
+          name="notes"
+          id="notes"
+          cols="30"
+          rows="10"
+          formControlName="notes"
+          class="form-control"
+        ></textarea>
+      </label>
+    </div>
+    <div class="details__edit form-group">
+      <div class="img__container">
+        <label for="image__url"
+          >Url
+          <input
+            value="Url"
+            [checked]="true"
+            type="radio"
+            name="image"
+            id="image__url"
+            #image__url
+        /></label>
+        <label for="image__file"
+          >File
+          <input
+            value="File"
+            type="radio"
+            name="image"
+            id="image__file"
+            #image__File
+        /></label>
+        <input
+          type="text"
+          formControlName="picture"
+          class="form-control"
+          id="image__url_input"
+          *ngIf="image__url.checked; elseFile"
+        />
+        <ng-template #elseFile>
+          <input
+            type="file"
+            id="image__file_input"
+            formControlName="picture"
+            class="form-control"
+        /></ng-template>
+      </div>
+
+      <label for="name"
+        >Name
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          class="form-control"
+      /></label>
+      <label for="dueDate"
+        >Due Date
+        <input
+          type="date"
+          id="dueDate"
+          formControlName="dueDate"
+          class="form-control"
+      /></label>
+      <label for="issuer"
+        >Issuer
+        <input
+          type="text"
+          id="issuer"
+          formControlName="issuer"
+          class="form-control"
+      /></label>
+      <label for="fav"
+        >Add to Favourites
+        <input type="checkbox" id="fav" formControlName="fav"
+      /></label>
+      <div class="edit__actions">
+        <button mat-stroked-button color="primary" type="submit">Save</button>
+        <button mat-stroked-button routerLink="/cards">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,15 @@
+<nav mat-tab-nav-bar mat-align-tabs="center">
+    <a
+        mat-tab-link
+        *ngFor="let link of navLinks"
+        [routerLink]="link.link"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+    >
+        {{ link.label }}
+    </a>
+</nav>
+
+<button mat-raised-button color="primary" class="add" routerLink="cards/add">Add Card</button>
+<router-outlet></router-outlet>

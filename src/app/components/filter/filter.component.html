@@ -1,0 +1,26 @@
+<form class="filter">
+    <select
+        name="category"
+        id="filter__select"
+        #categorySelect
+        (change)="filterByCategory($event)"
+    >
+        <option selected>Select Category</option>
+        <option *ngFor="let category of categories">
+            {{ category }}
+        </option>
+    </select>
+
+    <div class="filter__text">
+        <input
+            type="text"
+            placeholder="Card title first letter..."
+            #cardInput
+        />
+        <button (click)="filterByTitle(cardInput.value)">Filter</button>
+    </div>
+    <label for="favourites">
+        Favourites
+        <input id="favourites" type="checkbox" (change)="filterByFav($event)" />
+    </label>
+</form>

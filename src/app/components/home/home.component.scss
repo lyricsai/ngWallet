@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+button.add {
+  position: relative;
+  right: 0;
+  margin: 1rem 1rem 1rem auto;
+}
