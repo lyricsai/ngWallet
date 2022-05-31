@@ -1,16 +1,23 @@
-<form [formGroup]="formAuth">
+<div class="logging__out" *ngIf="loggedIn">
+    <p>Successfully logged in</p>
+    <button (click)="logout()">Log out</button>
+</div>
+
+<form [formGroup]="formAuth" *ngIf="!loggedIn" (ngSubmit)="login()">
     <fieldset>
         <legend>Login</legend>
-        <div class="form-field">
-            <label>Email: </label>
-            <input name="email" formControlName="email" />
-        </div>
-        <div class="form-field">
-            <label>Password: </label>
-            <input name="password" formControlName="password" type="password" />
+        <div class="form-field" *ngFor="let field of formLogin">
+            <label>{{ field.label }} </label>
+            <input
+                name="{{ field.name }}"
+                formControlName="{{ field.formControl }}"
+                type="{{ field?.type }}"
+            />
         </div>
         <div class="form-buttons">
-            <button class="button button-primary">Login</button>
+            <button class="button button-primary" (click)="login()">
+                Login
+            </button>
         </div>
     </fieldset>
 </form>

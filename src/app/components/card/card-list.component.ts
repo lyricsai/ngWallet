@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { ICard } from "src/app/interfaces/card";
 import { CardService } from "src/app/services/card.service";
 
@@ -10,11 +11,12 @@ import { CardService } from "src/app/services/card.service";
 export class CardListComponent implements OnInit {
     cards: ICard[] = [];
     posts: any;
+    id!: string | number;
     filterTitle: string = "";
     filterCat: string = "";
     favCheck: boolean = false;
 
-    constructor(protected cardService: CardService) {}
+    constructor(protected cardService: CardService, protected router: Router) {}
 
     ngOnInit(): void {
         this.getAllCards();
@@ -24,14 +26,27 @@ export class CardListComponent implements OnInit {
         this.cardService.getAllCards().subscribe((data) => (this.cards = data));
     }
 
-    recieveFilterTitle($event: string) {
-        this.filterTitle = $event;
-    }
-    recieveFilterCategory($event: string) {
-        this.filterCat = $event;
+    // deleteById(id: number | string): void {
+    //     // if (confirm('Delete this card?')) {
+    //     //   console.log('Delete card id: ', id);
+    //     //   this.cardService.deleteById(id).subscribe();
+
+    //     this.getAllCards();
+    //     //   setTimeout(() => {
+    //     //     this.router.navigate(['cards']);
+    //     //   }, 200);
+    //     // }
+    // }
+
+    recieveFilterTitle(filterTitle: string) {
+        this.filterTitle = filterTitle;
     }
 
-    recieveFilterFav($event: boolean) {
-        this.favCheck = $event;
+    recieveFilterCategory(filterCat: string) {
+        this.filterCat = filterCat;
+    }
+
+    recieveFilterFav(favCheck: boolean) {
+        this.favCheck = favCheck;
     }
 }

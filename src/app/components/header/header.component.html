@@ -1,15 +1,17 @@
 <header class="header">
-  <a mat-flat-button routerLink="/">
-    <div class="header__logo">
-      <h2>Some Cool Naming</h2>
-    </div>
-  </a>
+    <a mat-flat-button routerLink="/">
+        <div class="header__logo">
+            <h2>Some Cool Naming</h2>
+        </div>
+    </a>
 
-  <div class="isLogged">
-    <div *ngIf="isLogged" class="header__login">
-      <div class="username">{{ username }}</div>
-      <button mat-raised-button>Log out</button>
+    <div class="isLogged">
+        <div *ngIf="isLogged" class="header__login">
+            <div class="username">{{ username }}</div>
+            <button mat-raised-button (click)="logout()">Log out</button>
+        </div>
+        <ng-template #elseBlock
+            ><button (click)="login()">Log in</button></ng-template
+        >
     </div>
-    <ng-template #elseBlock><button>Log in</button></ng-template>
-  </div>
 </header>
