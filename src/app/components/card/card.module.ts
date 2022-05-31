@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
 import { ScrollingModule } from "@angular/cdk/scrolling";
 
 import { CardRoutingModule } from "./card-routing.module";
@@ -35,6 +36,7 @@ import { AuthGuard } from "src/app/guards/auth.guard";
         FormsModule,
         MatButtonModule,
         ScrollingModule,
+        MatCardModule,
     ],
     exports: [],
     providers: [AuthService, AuthGuard],

@@ -1,41 +1,61 @@
 <div class="card__container">
-  <div class="card__info" *ngIf="card">
-    <div class="img__container">
-      <img *ngIf="card.picture" src="{{ card.picture || '#' }}" alt="pic" />
-    </div>
-    <div class="card__details">
-      <h4 class="card__line">Title: {{ card.title | uppercase }}</h4>
-      <div class="card__line">Number: {{ card.cardNumber }}</div>
-      <div class="card__line">Category: {{ card.category }}</div>
-      <div class="card__line">{{ card.fav ? "Favourite" : null }}</div>
-      <button mat-stroked-button class="card__more_info" (click)="toggle()">
-        More...
-      </button>
-      <div class="card__isOpened" *ngIf="showMore">
-        <div class="card__line">Name: {{ card.name | titlecase }}</div>
-        <div class="card__line">Issuer: {{ card.issuer }}</div>
-        <div class="card__line">Notes: {{ card.notes }}</div>
-      </div>
-    </div>
-  </div>
-  <div class="card__actions">
-    <div class="card__line card__date">
-      {{ card?.dueDate ? "Expires on " + card.dueDate.slice(0, 10) : "Valid" }}
-    </div>
-    <a
-      mat-stroked-button
-      [routerLink]="['/cards', id || card.id, 'edit']"
-      class="primary"
-    >
-      Edit
-    </a>
-    <button
-      mat-flat-button
-      color="warn"
-      class="primary"
-      (click)="delete(card.id)"
-    >
-      Delete
-    </button>
-  </div>
+    <mat-card *ngIf="card" class="card__info">
+        <mat-card-title-group>
+            <mat-card-title>Title: {{ card.title | uppercase }}</mat-card-title>
+            <mat-card-subtitle>{{ card.cardNumber }}</mat-card-subtitle>
+            <mat-card-subtitle>Category: {{ card.category }}</mat-card-subtitle>
+            <img
+                mat-card-sm-image
+                *ngIf="card.picture"
+                src="{{ card.picture || '#' }}"
+                alt="pic"
+            />
+        </mat-card-title-group>
+        <mat-card-content>
+            <div class="card__details">
+                <div class="card__line">
+                    {{ card.fav ? "Favourite" : null }}
+                </div>
+
+                <div class="card__isOpened" *ngIf="showMore">
+                    <div class="card__line">
+                        Name: {{ card.name | titlecase }}
+                    </div>
+                    <div class="card__line">Issuer: {{ card.issuer }}</div>
+                    <div class="card__line">Notes: {{ card.notes }}</div>
+                    <div class="card__line card__date">
+                        {{
+                            card?.dueDate
+                                ? "Expires on " + card.dueDate.slice(0, 10)
+                                : "Valid"
+                        }}
+                    </div>
+                </div>
+            </div>
+            <div class="card__actions">
+                <button
+                    mat-stroked-button
+                    class="card__more_info"
+                    (click)="toggle()"
+                >
+                    More...
+                </button>
+                <a
+                    mat-stroked-button
+                    [routerLink]="['/cards', id || card.id, 'edit']"
+                    class="primary"
+                >
+                    Edit
+                </a>
+                <button
+                    mat-flat-button
+                    color="warn"
+                    class="primary"
+                    (click)="delete(card.id)"
+                >
+                    Delete
+                </button>
+            </div>
+        </mat-card-content>
+    </mat-card>
 </div>

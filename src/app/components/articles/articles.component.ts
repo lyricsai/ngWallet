@@ -14,7 +14,7 @@ export class ArticlesComponent implements OnInit {
         "Article 5",
     ];
     expandedIndex = 0;
-    value = "lollo";
+    value = "Place for a article link";
     constructor() {}
 
     ngOnInit(): void {}

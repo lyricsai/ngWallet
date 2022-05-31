@@ -1,4 +1,6 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { Observable, of } from "rxjs";
 import { UserDTO } from "../models/userDTO.model";
 
 export class User {
@@ -16,7 +18,7 @@ export class AuthService {
     public authToken: string | null = null;
     public userData: UserDTO | null = null;
 
-    constructor() {
+    constructor(private router: Router) {
         this.checkStorage();
     }
 
@@ -37,6 +39,7 @@ export class AuthService {
         localStorage.setItem(AUTH_TOKEN_KEY, authData.email + "randomString");
         localStorage.setItem(AUTH_TOKEN_DATA, JSON.stringify(authData));
         this.checkStorage();
+        this.router.navigateByUrl("/cards");
     }
 
     logout() {
@@ -45,11 +48,12 @@ export class AuthService {
         } else {
             localStorage.removeItem(AUTH_TOKEN_KEY);
             localStorage.removeItem(AUTH_TOKEN_DATA);
-            this.checkStorage();
+            this.userData = null;
+            this.authToken = null;
         }
     }
 
-    public isLoggedIn(): boolean {
-        return this.authToken !== null;
+    public isLoggedIn(): Observable<boolean> {
+        return of(this.authToken !== null);
     }
 }

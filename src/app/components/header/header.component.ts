@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Observable, Subscription } from "rxjs";
 import { AuthService, User } from "src/app/services/auth.service";
 
 @Component({
@@ -7,15 +8,26 @@ import { AuthService, User } from "src/app/services/auth.service";
     templateUrl: "./header.component.html",
     styleUrls: ["./header.component.scss"],
 })
-export class HeaderComponent implements OnInit {
-    isLogged: boolean = true;
+export class HeaderComponent implements OnInit, OnDestroy {
+    isLogged!: boolean;
     username?: string | null = null;
+    subscription!: Subscription;
 
-    constructor(public authService: AuthService, private router: Router) {}
+    constructor(public authService: AuthService, private router: Router) {
+        this.authService.checkStorage();
+        this.username = this.getUser();
+    }
 
     ngOnInit(): void {
-        this.username = this.getUser();
         // this.isLogged = this.authService.isLoggedIn();
+
+        this.subscription = this.authService
+            .isLoggedIn()
+            .subscribe((data) => (this.isLogged = data));
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     getUser() {
@@ -24,11 +36,13 @@ export class HeaderComponent implements OnInit {
 
     login() {
         this.router.navigateByUrl("/account");
-        // this.router.onSameUrlNavigation
     }
 
     logout() {
+        // this.authService.checkStorage();
         this.authService.logout();
-        this.router.onSameUrlNavigation;
+        return this.authService
+            .isLoggedIn()
+            .subscribe((data: boolean) => (this.isLogged = data));
     }
 }

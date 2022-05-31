@@ -1,7 +1,13 @@
 <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-    <h4>Drag & drop</h4>
+    <p class="messages__drag">
+        <span [matBadge]="messageCount" matBadgeOverlap="false"
+            >Drag & Drop Messages</span
+        >
+    </p>
     <ul class="example-box" *ngFor="let message of messages" cdkDrag>
-        <li>{{ message }}</li>
+        <li>
+            {{ message }}
+        </li>
     </ul>
 </div>
 

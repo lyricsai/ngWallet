@@ -20,8 +20,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
         "You can drag this message",
         "And add your own!",
     ];
+
     messageCount: number = this.messages.length;
     ticks = 0;
+    hidden = false;
+
     private timer: any;
     private sub!: Subscription;
 
@@ -51,5 +54,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     drop(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.messages, event.previousIndex, event.currentIndex);
+    }
+
+    toggleBadgeVisibility() {
+        this.hidden = !this.hidden;
     }
 }

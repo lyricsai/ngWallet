@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { Observable } from "rxjs";
 import { UserDTO } from "src/app/models/userDTO.model";
 import { AuthService } from "src/app/services/auth.service";
 
@@ -10,7 +11,7 @@ import { AuthService } from "src/app/services/auth.service";
     styleUrls: ["./auth.component.scss"],
 })
 export class AuthComponent implements OnInit {
-    loggedIn!: boolean;
+    isLogged!: boolean;
     formAuth: FormGroup;
 
     formLogin = [
@@ -50,8 +51,7 @@ export class AuthComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loggedIn = this.authService.isLoggedIn();
-        console.log(this.loggedIn);
+        this.checkStorage();
     }
 
     login() {
@@ -61,14 +61,19 @@ export class AuthComponent implements OnInit {
             const usr = new UserDTO();
             usr.email = val.email;
             usr.username = val.username;
-
             this.authService.login(usr);
-            this.router.navigateByUrl("/cards");
         }
     }
 
     logout() {
         this.authService.logout();
-        this.router.navigateByUrl("/");
+        this.checkStorage();
+        this.router.navigate(["/"]);
+    }
+
+    checkStorage() {
+        return this.authService
+            .isLoggedIn()
+            .subscribe((data: boolean) => (this.isLogged = data));
     }
 }

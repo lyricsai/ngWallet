@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { DragDropModule } from "@angular/cdk/drag-drop";
+import { MatBadgeModule } from "@angular/material/badge";
 
 import { MessagesRoutingModule } from "./messages-routing.module";
 import { MessagesComponent } from "./messages.component";
@@ -16,6 +17,7 @@ import { MessageComponent } from "../message/message.component";
         FormsModule,
         ReactiveFormsModule,
         DragDropModule,
+        MatBadgeModule,
     ],
 })
 export class MessagesModule {}

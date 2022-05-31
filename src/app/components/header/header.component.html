@@ -1,17 +1,37 @@
 <header class="header">
-    <a mat-flat-button routerLink="/">
-        <div class="header__logo">
-            <h2>Some Cool Naming</h2>
-        </div>
-    </a>
-
-    <div class="isLogged">
-        <div *ngIf="isLogged" class="header__login">
-            <div class="username">{{ username }}</div>
-            <button mat-raised-button (click)="logout()">Log out</button>
-        </div>
-        <ng-template #elseBlock
-            ><button (click)="login()">Log in</button></ng-template
+    <mat-toolbar color="primary">
+        <button
+            mat-icon-button
+            class="example-icon"
+            aria-label="Example icon-button with menu icon"
         >
-    </div>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <a mat-flat-button routerLink="/" class="header__logo">NgWallet</a>
+        <span class="example-spacer"></span>
+        <button
+            mat-icon-button
+            class="example-icon favorite-icon"
+            aria-label="Example icon-button with heart icon"
+        >
+            <mat-icon>favorite</mat-icon>
+        </button>
+        <button
+            mat-icon-button
+            class="example-icon"
+            aria-label="Example icon-button with share icon"
+        >
+            <mat-icon>share</mat-icon>
+        </button>
+
+        <div class="isLogged">
+            <div *ngIf="!isLogged" class="header__login">
+                <button (click)="login()">Log in</button>
+            </div>
+            <div *ngIf="isLogged">
+                <div class="username">{{ getUser() }}</div>
+                <button mat-raised-button (click)="logout()">Log out</button>
+            </div>
+        </div>
+    </mat-toolbar>
 </header>

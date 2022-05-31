@@ -1,9 +1,9 @@
-<div class="logging__out" *ngIf="loggedIn">
+<div class="logging__out" *ngIf="isLogged">
     <p>Successfully logged in</p>
     <button (click)="logout()">Log out</button>
 </div>
 
-<form [formGroup]="formAuth" *ngIf="!loggedIn" (ngSubmit)="login()">
+<form [formGroup]="formAuth" *ngIf="!isLogged" (ngSubmit)="login()">
     <fieldset>
         <legend>Login</legend>
         <div class="form-field" *ngFor="let field of formLogin">

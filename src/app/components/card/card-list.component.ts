@@ -26,18 +26,6 @@ export class CardListComponent implements OnInit {
         this.cardService.getAllCards().subscribe((data) => (this.cards = data));
     }
 
-    // deleteById(id: number | string): void {
-    //     // if (confirm('Delete this card?')) {
-    //     //   console.log('Delete card id: ', id);
-    //     //   this.cardService.deleteById(id).subscribe();
-
-    //     this.getAllCards();
-    //     //   setTimeout(() => {
-    //     //     this.router.navigate(['cards']);
-    //     //   }, 200);
-    //     // }
-    // }
-
     recieveFilterTitle(filterTitle: string) {
         this.filterTitle = filterTitle;
     }
