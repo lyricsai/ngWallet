@@ -6,6 +6,7 @@ import {
     OnInit,
 } from "@angular/core";
 import { Subscription, timer } from "rxjs";
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 
 @Component({
     selector: "app-messages",
@@ -14,9 +15,16 @@ import { Subscription, timer } from "rxjs";
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessagesComponent implements OnInit, OnDestroy {
-    messages: string[] = ["Welcome to our app"];
+    messages: string[] = [
+        "Welcome to our app",
+        "You can drag this message",
+        "And add your own!",
+    ];
+
     messageCount: number = this.messages.length;
     ticks = 0;
+    hidden = false;
+
     private timer: any;
     private sub!: Subscription;
 
@@ -42,5 +50,13 @@ export class MessagesComponent implements OnInit, OnDestroy {
     tickerFunc(tick: number) {
         this.ticks = tick;
         this.ref.markForCheck();
+    }
+
+    drop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.messages, event.previousIndex, event.currentIndex);
+    }
+
+    toggleBadgeVisibility() {
+        this.hidden = !this.hidden;
     }
 }

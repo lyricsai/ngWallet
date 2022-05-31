@@ -4,9 +4,11 @@
     (cardFilterFav)="recieveFilterFav($event)"
 ></app-filter>
 
-<div class="card__list" *ngIf="!cards.length; showCards">No Cards Yet.</div>
+<div class="card__list" *ngIf="!cards.length; else showCards">
+    No Cards Yet.
+</div>
 
-<div class="card__list_showing" #showCards>
+<ng-template class="card__list_showing" #showCards>
     <p
         *ngIf="
             (filterCat && filterCat !== 'Select Category') ||
@@ -17,19 +19,22 @@
         Search for {{ filterTitle }} {{ filterCat }}
         {{ favCheck ? "Favourites" : "" }}
     </p>
-    <ul
-        class="card__list"
-        *ngFor="
-            let card of cards
-                | filter: filterTitle
-                | filterCategory: filterCat
-                | filterFav: favCheck
-        "
-    >
-        <li>
-            <a routerLink="{{ card.id }}">
-                <app-card-detail [card]="card"></app-card-detail>
-            </a>
-        </li>
-    </ul>
-</div>
+
+    <cdk-virtual-scroll-viewport itemSize="200" class="list-viewport">
+        <ul>
+            <li
+                *cdkVirtualFor="
+                    let card of cards
+                        | filter: filterTitle
+                        | filterCategory: filterCat
+                        | filterFav: favCheck
+                "
+                class="list-item"
+            >
+                <a [routerLink]="['/cards/' + card.id]">
+                    <app-card-detail [card]="card"></app-card-detail>
+                </a>
+            </li>
+        </ul>
+    </cdk-virtual-scroll-viewport>
+</ng-template>

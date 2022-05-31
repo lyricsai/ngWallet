@@ -52,6 +52,7 @@
           <input
             value="Url"
             [checked]="true"
+            (change)="choosePictureType()"
             type="radio"
             name="image"
             id="image__url"
@@ -61,6 +62,7 @@
           >File
           <input
             value="File"
+            (change)="choosePictureType()"
             type="radio"
             name="image"
             id="image__file"
@@ -71,15 +73,16 @@
           formControlName="picture"
           class="form-control"
           id="image__url_input"
-          *ngIf="image__url.checked; elseFile"
+          *ngIf="pictureType"
         />
-        <ng-template #elseFile>
-          <input
-            type="file"
-            id="image__file_input"
-            formControlName="picture"
-            class="form-control"
-        /></ng-template>
+
+        <input
+          *ngIf="!pictureType"
+          type="file"
+          id="image__file_input"
+          formControlName="picture"
+          class="form-control"
+        />
       </div>
 
       <label for="name"

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { Categories } from "src/app/data/cards";
+import { Categories } from "src/app/models/cards";
 
 @Component({
     selector: "app-filter",
@@ -19,15 +19,15 @@ export class FilterComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    filterByTitle(value: string) {
-        this.cardFilterTitle.emit(value);
+    filterByTitle(title: string) {
+        this.cardFilterTitle.emit(title);
     }
 
-    filterByCategory($event: any) {
-        this.cardFilterCategory.emit($event.target.value);
+    filterByCategory(category: any) {
+        this.cardFilterCategory.emit(category.target.value);
     }
 
-    filterByFav($event: any) {
-        this.cardFilterFav.emit($event.currentTarget.checked);
+    filterByFav(isFav: any) {
+        this.cardFilterFav.emit(isFav.currentTarget.checked);
     }
 }

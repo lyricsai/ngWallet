@@ -1,6 +1,16 @@
-<ul>
-    <li *ngFor="let message of messages">{{ message }}</li>
-</ul>
+<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <p class="messages__drag">
+        <span [matBadge]="messageCount" matBadgeOverlap="false"
+            >Drag & Drop Messages</span
+        >
+    </p>
+    <ul class="example-box" *ngFor="let message of messages" cdkDrag>
+        <li>
+            {{ message }}
+        </li>
+    </ul>
+</div>
+
 <app-message
     (newMessageEvent)="addMessage($event)"
     [messageCount]="messageCount"

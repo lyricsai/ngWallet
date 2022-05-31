@@ -21,17 +21,18 @@ export class MessageComponent implements OnInit, OnChanges {
 
     constructor(private ref: ChangeDetectorRef) {}
 
-    ngOnInit(): void {}
-
-    ngOnChanges(data: SimpleChanges) {
-        console.log(data);
+    ngOnInit(): void {
         this.ref.detach();
     }
 
+    ngOnChanges(data: SimpleChanges) {
+        console.log(data);
+    }
+
     addNewMessage(value: string): void {
+        this.ref.reattach();
         this.newMessageEvent.emit(value);
         this.message = "";
-        this.ref.reattach();
     }
 
     onInput(message: string) {

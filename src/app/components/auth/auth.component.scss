@@ -1,14 +1,21 @@
 form {
-  max-width: 400px;
-  margin: 0 auto;
-  & div {
-    padding: 15px;
+    max-width: 400px;
     margin: 0 auto;
-    max-width: 350px;
-    text-align: end;
-  }
-  & legend {
-    text-align: right;
-    padding: 0 30px;
-  }
+    & div {
+        padding: 15px;
+        margin: 0 auto;
+        max-width: 350px;
+        text-align: end;
+    }
+    & legend {
+        text-align: right;
+        padding: 0 30px;
+    }
+}
+.logging__out {
+    text-align: center;
+    margin: 1rem;
+    & button {
+        padding: 0.5rem 1rem;
+    }
 }
